@@ -2,6 +2,7 @@
 """ FIFO Cache module
 """
 
+
 from base_caching import BaseCaching
 
 
@@ -37,4 +38,3 @@ class FIFOCache(BaseCaching):
             return None
 
         return self.cache_data[key]
-
