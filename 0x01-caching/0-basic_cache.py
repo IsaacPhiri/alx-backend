@@ -17,7 +17,7 @@ class BasicCache(BaseCaching):
         Adds items to the cache
         """
 
-        if key in None or item is None:
+        if key is None or item is None:
             return
         self.cache_data[key] = item
 
@@ -28,4 +28,4 @@ class BasicCache(BaseCaching):
 
         if key is None or key not in self.cache_data:
             return None
-        return self.chache_data[key]
+        return self.cache_data[key]
