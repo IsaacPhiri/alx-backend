@@ -1,2 +1,11 @@
-<title>{{ _('home_title') }}</title>
-<h1>{{ _('home_header') }}</h1>
+<!DOCTYPE html>
+<html lang="{{ babel.locale }}">
+  <head>
+    <meta charset="UTF-8">
+  <title>{{ _('home_title') }}</title>/head>
+  <body>
+    <h1>{{ _('home_header') }}</h1>
+	  <p>{{ _('Available languages') }}: {{ babel.list_translations()|join(', ') }}</p>
+    <p>{{ _('Your language') }}: {{ babel.locale.language }}</p>
+  </body>
+</html>
