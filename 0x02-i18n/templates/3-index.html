@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="{{ babel.locale }}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <h1>{{ header }}</h1>
+    <p>{{ _('Available languages') }}: {{ babel.list_translations()|join(', ') }}</p>
+    <p>{{ _('Your language') }}: {{ babel.locale.language }}</p>
+  </body>
+</html>

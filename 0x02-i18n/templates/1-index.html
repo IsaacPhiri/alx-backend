@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="{{ request.accept_languages.best_match(babel.list_translations()) }}">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ _('Welcome to Holberton') }}</title>
+  </head>
+  <body>
+    <h1>{{ _('Hello world') }}</h1>
+    <p>{{ _('Available languages') }}: {{ babel.list_translations()|join(', ') }}</p>
+    <p>{{ _('Your language') }}: {{ request.accept_languages.best_match(babel.list_translations()) }}</p>
+  </body>
+</html>
