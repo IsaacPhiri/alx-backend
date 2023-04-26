@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ _('home_title') }}</title>
+</head>
+<body>
+    <h1>{{ _('home_header') }}</h1>
+    {% if logged_in_msg %}
+    <p>{{ logged_in_msg }}</p>
+    {% else %}
+    <p>{{ not_logged_in_msg }}</p>
+    {% endif %}
+</body>
+</html>
