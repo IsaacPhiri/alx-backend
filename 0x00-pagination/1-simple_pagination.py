@@ -4,10 +4,9 @@ This module contains a function named index_range.
 """
 
 
-from typing import Tuple
+from typing import Tuple, List
 import csv
 import math
-from typing import List
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
