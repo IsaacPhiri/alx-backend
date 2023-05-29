@@ -1,66 +1,49 @@
-const redis = require('redis');
+#!/usr/bin/node
 
+import { createClient } from 'redis';
+import { promisify } from 'util';
 
 class RedisClient {
-    constructor(port, host) {
-        this.client = redis.createClient({
-            host: host,
-            port: port,
-        });
-
-        this.client.on('connect', () => {});
-        this.client.on('error', () => {});
-
+    constructor() {
+        this.client = createClient();
+	this.Connected = true;
+        this.client.on('error', (err) => {
+		console.error('Redis client connection failed:', err.message);
+		this.Connected = false;
+	});
+	this.client.on('connect', () => {
+		this.Connected = true;
+	});
     }
 
     isAlive() {
-        return new Promise((resolve, reject) => {
-            this.client.on('connect', () => {
-                resolve(true);
-            });
-            this.client.on('error', () => {
-                resolve(false);
-            });
-        });
+        return this.Connected;
     }
 
     async get(key) {
-       // try {
-            const value = await this.client.get(key);
-            return value;
-      //  } catch (error) {
-       //     throw new Error('Could not get value.');
-       // }
+       return promisify(this.client.GET).bind(this.client)(key);
     }
 
     async set(key, value, time) {
-        //try {
-            await this.client.set(key, value);
-         //   setTimeout(() => {
-          //  }, time);
-        //} catch (error) {
-          //  throw new Error('Could not set key:value for client.');
+	await promisify(this.client.SETEX)
+	    .bind(this.client)(key, time, value);
         }
-    //}
 
     async del(key) {
-        try {
-            await this.client.del(key);
-        } catch (error) {
-            throw new Error('Could not delete key.');
-        }
+        await promisify(this.client.DEL).bind(this.client)(key);
     }
 }
 
-const redisClient = new RedisClient(6379, 'localhost');
+export const redisClient = new RedisClient();
+export default redisClient;
 
 (async () => {
-    console.log(await redisClient.isAlive());
+    console.log(redisClient.isAlive());
     console.log(await redisClient.get('myKey'));
-    await redisClient.set('myKey', 12, 5000);
+    await redisClient.set('myKey', 12, 5);
     console.log(await redisClient.get('myKey'));
 
     setTimeout(async () => {
         console.log(await redisClient.get('myKey'));
-    }, 10000);
+    }, 1000*10)
 })();
