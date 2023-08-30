@@ -1,5 +1,4 @@
 # alx-backend
-# Alx-backend
 ## Description
 This repository contains projects from the Holberton School System Engineering & DevOps track. The projects cover topics such as:
 * Pagination
